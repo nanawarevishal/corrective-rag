@@ -3,7 +3,7 @@ name = "crag-reflective-rag"
 version = "1.0.0"
 description = "Corrective RAG + Self-Reflective RAG Implementation"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.14"
 authors = [
     { name = "Your Name", email = "you@example.com" }
 ]
@@ -17,36 +17,61 @@ classifiers = [
 ]
 
 dependencies = [
-    "fastapi>=0.115.0",
-    "uvicorn[standard]>=0.32.0",
-    "python-multipart>=0.0.17",
-    "pydantic>=2.9.0",
-    "pydantic-settings>=2.6.0",
-    "docling>=2.11.0",
-    "docling-core>=2.5.0",
-    "qdrant-client>=1.12.0",
-    "openai>=1.54.0",
+    # API Framework
+    "fastapi[standard]",
+    "mangum",
+    "pydantic==2.11.7",
+    "pydantic-settings==2.10.1",
+    "python-multipart==0.0.20",
+    # Document Processing
+    "docling",
+    "docling-core",
+    "semchunk",
+    "unstructured[pdf]==0.18.31",
+    "onnxruntime==1.23.2",
+    "python-magic",
+    "pillow==11.3.0",
+    # Embeddings & Vector DB
+    "openai==2.14.0",
+    "pinecone[grpc]",
+    "tiktoken==0.11.0",
+    # Text-to-SQL
+    "vanna[fastapi,openai,postgres]",
+    "sqlalchemy==2.0.43",
+    "psycopg2-binary==2.9.10",
+    "faker",
+    # Evaluation & Monitoring
+    "ragas",
+    "datasets",
+    "opik",
+    # Utilities
+    "python-dotenv==1.1.1",
+    "httpx==0.28.1",
+    # Caching
+    "numpy==2.2.6",
+    "upstash-redis",
+    # AWS Services
+    "boto3==1.40.61",
+    # Compatibility pins from prior project
+    "numba==0.61.2",
+    "llvmlite==0.44.0",
+    # Existing app dependencies kept for current code paths
+    "qdrant-client==1.16.2",
     "tavily-python>=0.5.0",
-    "python-dotenv>=1.0.1",
     "loguru>=0.7.2",
-    "numpy>=2.1.0",
-    "tiktoken>=0.8.0",
-    "sentence-transformers>=3.0.0",
     "voyageai>=0.2.0",
-    "jupyter>=1.1.1",
-    "langchain>=0.3.0",
-    "langchain-openai>=0.2.0",
-    "langchain-community>=0.3.0",
-    "faiss-cpu>=1.9.0",
+    # Local reranking stack from reference
+    "sentence-transformers==5.2.0",
+    "torch==2.2.2",
+    "transformers==4.57.3",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "pytest>=8.0.0",
-    "pytest-asyncio>=0.23.0",
-    "httpx>=0.27.0",
-    "ruff>=0.6.0",
-    "mypy>=1.11.0",
+    "pytest",
+    "pytest-asyncio",
+    "black",
+    "ruff",
 ]
 
 [project.scripts]
@@ -54,11 +79,10 @@ crag-rag = "app.main:main"
 
 [tool.uv]
 dev-dependencies = [
-    "pytest>=8.0.0",
-    "pytest-asyncio>=0.23.0",
-    "httpx>=0.27.0",
-    "ruff>=0.6.0",
-    "mypy>=1.11.0",
+    "pytest",
+    "pytest-asyncio",
+    "black",
+    "ruff",
 ]
 
 [tool.ruff]
